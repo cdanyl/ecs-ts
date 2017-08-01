@@ -4,29 +4,61 @@ import { Component } from './components';
 
 export class Entity {
   public components: { [index: string]: any } = {};
+  public id: string;
+  public systems: any[];
+
   private count = 0;
-  private id: string;
 
+  constructor (id: any = uuid(), components: Component[] = []) {
+    this.id      = uuid();
+    this.systems = [];
 
-  constructor () {
-    this.id = uuid();
+    components.forEach((component: Component) => {
+      if (component.getDefaults) {
+        this.components[component.name] = component.getDefaults();
+      } else {
+        this.components[component.name] = Object.assign({}, component.defaults);
+      }
+    });
   }
 
-  addComponent (component: Component) {
-    const componentName = this.getComponentKey(component);
-
-    if (this.components[componentName]) {
-      throw new Error(`Component '${componentName}' already exists.`);
-    } else {
-      this.components[componentName] = component;
-      this.count++;
+  addComponent (component: Component): Component {
+    if (!component.name) {
+      component.name = this.getComponentKey(component);
     }
+
+    if (this.components[component.name]) {
+      throw new Error(`Component '${component.name}' already exists.`);
+    }
+
+    this.components[component.name] = component;
+    this.count++;
+
+    return component;
   }
 
-  removeComponent (component: Component) {
-    this.components.delete(this.getComponentKey(component));
+  updateComponent (component: any): Component {
+    const _component = this.components[component.name];
 
-    return this;
+    if (!_component) {
+      return this.addComponent(component);
+    }
+
+    const keys = Object.keys(component);
+
+    keys.forEach(key => {
+      _component[key] = component[key];
+    });
+
+    return component;
+  }
+
+  removeComponent (componentName: string) {
+    if (!this.components[componentName]) {
+      throw new Error(`Component '${componentName}' doesn't exists.`);
+    }
+
+    this.components[componentName] = undefined;
   }
 
   print () {
@@ -35,5 +67,19 @@ export class Entity {
     return this;
   }
 
-  private getComponentKey = (component: Component): string => component.constructor.name;
+  updateComponents (components: Component[]): Component[] {
+    components.forEach(component => {
+      this.updateComponent(component);
+    });
+
+    return components;
+  }
+
+  hasComponent (componentName: string): boolean {
+    return this.components[componentName] !== undefined;
+  }
+
+  static getComponentKey (component: Component): string {
+    return component.constructor.name;
+  }
 }

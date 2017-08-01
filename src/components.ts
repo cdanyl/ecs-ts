@@ -1,4 +1,5 @@
 export class Component {
-  name: string;
-  value: number;
+  defaults?: object;
+  getDefaults?: Function;
+  name?: string;
 }

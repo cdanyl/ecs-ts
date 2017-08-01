@@ -1,40 +1,21 @@
 {
-  "name": "webpack-ts-kit",
-  "version": "1.0.0",
-  "description": "A Webpack 3, TypeScript 2 starter kit",
-  "main": "index.js",
+  "name": "Entity-Component-System",
+  "version": "0.0.1",
+  "description": "Entity-component-system (ECS)",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.js",
     "build": "npm run clean:build && NODE_ENV=production webpack --config webpack.config.js",
-    "lint": "tslint -c tslint.json --format stylish \"./src/*.ts*\""
+    "lint": "tslint -c tslint.json --format stylish \"./src/*.ts*\"",
+    "start": "webpack-dev-server --config webpack.config.js",
+    "test": "jest --watch"
   },
-  "keywords": [
-    "webpack",
-    "typescript",
-    "starter kit",
-    "starter project",
-    "boilerplate"
-  ],
-  "author": "Aaron Leo Cooper <aaronleocooper@gmail.com>",
-  "license": "MIT",
-  "nyc": {
-    "require": [
-      "ts-node/register"
-    ],
-    "extension": [
-      ".ts"
-    ],
-    "reporter": [
-      "lcov",
-      "text-summary"
-    ],
-    "sourceMap": true,
-    "instrument": true
-  },
+  "author": "Ch. Danyl",
   "devDependencies": {
+    "@types/jest": "^20.0.5",
     "@types/node": "^8.0.17",
     "html-webpack-plugin": "^2.29.0",
+    "jest": "^20.0.4",
     "source-map-support": "^0.4.15",
+    "ts-jest": "^20.0.5",
     "ts-loader": "^2.3.1",
     "ts-node": "^3.3.0",
     "tslint": "^5.5.0",
@@ -46,5 +27,12 @@
   "dependencies": {
     "@types/uuid": "^3.4.0",
     "uuid": "^3.1.0"
+  },
+  "jest": {
+    "moduleFileExtensions": ["ts", "js"],
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|js)$"
   }
 }

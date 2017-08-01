@@ -1,9 +1,11 @@
-# Build an Entity Component System Game in Typescript
+Entity Component System
+=======================
 
-Typescript entity-component-system library, that allows modularity.
-
-It is a general architecture pattern that could be applied to many domains, 
-the predominant uses of it are in game development.
+> Entity-component-system (ECS) is an architectural pattern that is mostly 
+> used in game development. An ECS follows the Composition over inheritance 
+> principle that allows greater flexibility in defining entities where every 
+> object in a game's scene is an entity (e.g. enemies, bullets, vehicles, 
+> etc.).
 
 I'll cover the basic topics of ECS and we'll build a basic HTML5 game about eating rectangles
 oh-so creatively called "Rectangle Eater".

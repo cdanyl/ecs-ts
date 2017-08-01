@@ -37,7 +37,7 @@ const definePlugin = new webpack.DefinePlugin({
 const noEmitOnErrorsPlugin = new webpack.NoEmitOnErrorsPlugin();
 
 const htmlWebpackPlugin = new HtmlWebpackPlugin({
-  title: 'Sample TypeScript App',
+  title: 'Rectangle Eater using ECS Pattern',
   inject: true,
   hash: true
 });
